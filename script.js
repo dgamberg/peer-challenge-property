@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	$('.outputDiv').hide();
 	function randomNumber(min, max){
 		return Math.floor(Math.random() * (1 + max - min) + min);
 	}
@@ -16,30 +16,29 @@ $(document).ready(function(){
 
 	var index = 12;
 
-	$('.container').on('click', '.generate', function(){
-		console.log("Click!");
-		for( var i=0; i< index;i++){
-			$('.outputTable').append('<tr class="property"></tr>');
-			var $parent = $('.outputTable').children().last();
-			var $el = $('.outputTable').children().closest("tr").last();
-			
-			$el.append("<td>Property ID: " + getPropertyId() + "</td>");
-			$el.append("<td>" + getSqFt() + " Sq. Ft.</td>");
-			$el.append("<td>$" + getPrice() + " / sq.ft.</td>");
-			$el.append("<td><button class='deleteButton'>Remove</button></td>");
+	$('.employeeContainer').on('click', '.generateButton', function(){
 		
-		var delayTime = i * 100;
-		$parent.hide();
-		$parent.fadeIn(2000);
-		// 	.delay(delayTime)
-		// 	.slideDown(500, function(){
-		// 	});
+		for( var i=0; i< index;i++){
+			$('.outputDiv').append('<div class="itemRow"></div>');
+			//var $parent = $('.outputTable').children().last();
+			var $el = $('.outputDiv').children().last();
+			
+			$el.append("<div class='itemCell'>Property ID:&nbsp;&nbsp; " + getPropertyId() + "</div>");
+			$el.append("<div class='itemCell'>" + getSqFt() + " Sq. Ft.</div>");
+			$el.append("<div class='itemCell'>$" + getPrice() + " / sq.ft.</div>");
+			$el.append("<div class='itemCell'><button class='deleteButton'>Remove</button></div>");
+			
+			$('.outputDiv').slideDown();	
+			var delayTime = i * 100;
+			$el.hide()
+				.delay(delayTime)
+				.slideDown(500);
 		 }
+		
 		
 	});
 
-
-	$('.container').on('click', '.deleteButton', function(){
+	$('.outputDiv').on('click', '.deleteButton', function(){
 		$(this).parent().parent().remove();
 	});
 });
